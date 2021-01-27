@@ -1,4 +1,4 @@
-package com.github.zjgoodman.marsrover;
+package com.github.zjgoodman.marsrover.http.gson;
 
 import java.util.List;
 

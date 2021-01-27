@@ -1,4 +1,4 @@
-package com.github.zjgoodman.marsrover;
+package com.github.zjgoodman.marsrover.http;
 
 import java.io.InputStream;
 import java.net.URI;

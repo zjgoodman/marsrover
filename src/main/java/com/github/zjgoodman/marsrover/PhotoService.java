@@ -13,7 +13,11 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-import com.github.PhotoWebClient;
+import com.github.zjgoodman.marsrover.http.NasaWebClient;
+import com.github.zjgoodman.marsrover.http.PhotoWebClient;
+import com.github.zjgoodman.marsrover.http.WebResponse;
+import com.github.zjgoodman.marsrover.http.gson.GsonPhotoMetadata;
+import com.github.zjgoodman.marsrover.http.gson.GsonPhotosList;
 import com.google.gson.Gson;
 
 public class PhotoService {

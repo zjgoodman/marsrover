@@ -1,4 +1,4 @@
-package com.github.zjgoodman.marsrover;
+package com.github.zjgoodman.marsrover.http;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

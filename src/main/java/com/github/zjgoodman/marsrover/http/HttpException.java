@@ -1,4 +1,4 @@
-package com.github.zjgoodman.marsrover;
+package com.github.zjgoodman.marsrover.http;
 
 public class HttpException extends RuntimeException {
     private static final long serialVersionUID = 1L;

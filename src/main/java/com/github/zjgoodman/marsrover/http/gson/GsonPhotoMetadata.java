@@ -1,5 +1,6 @@
-package com.github.zjgoodman.marsrover;
+package com.github.zjgoodman.marsrover.http.gson;
 
+import com.github.zjgoodman.marsrover.PhotoMetadata;
 import com.google.gson.annotations.SerializedName;
 
 public class GsonPhotoMetadata implements PhotoMetadata {

@@ -1,11 +1,9 @@
-package com.github;
+package com.github.zjgoodman.marsrover.http;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-
-import com.github.zjgoodman.marsrover.WebResponse;
 
 public class PhotoWebClient {
     public WebResponse getPhoto( String url ) {

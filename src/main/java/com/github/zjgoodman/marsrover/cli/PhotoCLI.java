@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.github.zjgoodman.marsrover.Config;
 import com.github.zjgoodman.marsrover.PhotoService;
-import com.github.zjgoodman.marsrover.NasaWebClient;
+import com.github.zjgoodman.marsrover.http.NasaWebClient;
 import com.github.zjgoodman.marsrover.util.DateParser;
 
 import picocli.CommandLine;
