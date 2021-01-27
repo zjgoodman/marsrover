@@ -9,16 +9,16 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class WebClient {
+public class NasaWebClient {
     private static final String API_KEY_PARAM = "api_key";
 
     private final WebTarget rootEndpoint;
 
-    public WebClient( String endpoint ) {
+    public NasaWebClient( String endpoint ) {
         this( endpoint, null );
     }
 
-    public WebClient( String url, String token ) {
+    public NasaWebClient( String url, String token ) {
         WebTarget endpoint = ClientBuilder.newBuilder().build().target( url );
         if ( token != null ) {
             endpoint = endpoint.queryParam( API_KEY_PARAM, token );

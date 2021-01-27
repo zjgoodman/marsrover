@@ -6,7 +6,7 @@ public class HttpException extends RuntimeException {
     public HttpException( WebResponse response ) {
         super( String.format( "HTTP response %d: '%s' when communicating with %s",
             response.getStatus(),
-            response.getBody(),
+            response.getBodyAsString(),
             response.getLocation() ) );
     }
 }

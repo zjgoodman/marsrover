@@ -7,9 +7,8 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 
 import com.github.zjgoodman.marsrover.Config;
-import com.github.zjgoodman.marsrover.Photo;
 import com.github.zjgoodman.marsrover.PhotoService;
-import com.github.zjgoodman.marsrover.WebClient;
+import com.github.zjgoodman.marsrover.NasaWebClient;
 import com.github.zjgoodman.marsrover.util.DateParser;
 
 import picocli.CommandLine;
@@ -18,7 +17,7 @@ import picocli.CommandLine.Option;
 
 @Command( name = "download", description = "Downloads a photo from NASA" )
 public class PhotoCLI implements Runnable {
-    @Option( names = "--endpoint", description = "token to authenticate with github", interactive = true, arity = "0..1" )
+    @Option( names = "--endpoint", description = "token to authenticate with github" )
     private String endpoint = Config.NASA_API_BASE_URL;
 
     @Option( names = "--token", description = "token to authenticate with github", interactive = true, arity = "0..1" )
@@ -30,6 +29,9 @@ public class PhotoCLI implements Runnable {
     @Option( names = { "-h", "--help" }, usageHelp = true, description = "display a help message" )
     private boolean helpRequested = false;
 
+    @Option( names = "--rover", description = "the rover whose photos should be pulled" )
+    private String rover = Config.NASA_DEFAULT_ROVER_NAME;
+
     public static void main( String[] args ) {
         int exitCode = new CommandLine( new PhotoCLI() ).execute( args );
         System.exit( exitCode );
@@ -37,13 +39,12 @@ public class PhotoCLI implements Runnable {
 
     @Override
     public void run() {
-        WebClient nasaClient = new WebClient( endpoint, apiKey );
+        NasaWebClient nasaClient = new NasaWebClient( endpoint, apiKey );
         PhotoService photoService = new PhotoService( nasaClient );
         Set<Date> dates = new DateParser().parseDates( dateStrings );
         for ( Date date : dates ) {
             try {
-                Photo photo = photoService.getPhoto( date ).get();
-                System.out.println( photo.getURL() );
+                photoService.downloadPhoto( date, rover ).get();
             } catch ( InterruptedException | ExecutionException e ) {
                 throw new CompletionException( e );
             }

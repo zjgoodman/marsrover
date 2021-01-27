@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class GsonPhotosList {
     @SerializedName( "photos" )
-    private List<GsonPhoto> photos;
+    private List<GsonPhotoMetadata> photos;
 
-    public List<GsonPhoto> getPhotos() {
+    public List<GsonPhotoMetadata> getPhotos() {
         return photos;
     }
 }
