@@ -10,11 +10,12 @@ import org.junit.Test;
 public class PhotoServiceTest {
     @Test
     public void testGetPhoto() throws Exception {
-        WebClient webClient = new WebClient( "https://api.nasa.gov/mars-photos/api/v1", "gyiCAARMmpZikoFEinbhEwChPhXbRevM0AdA6s1f" );
+        WebClient webClient = new WebClient( Config.NASA_API_BASE_URL, Config.NASA_API_KEY );
         PhotoService photoService = new PhotoService( webClient );
-        DateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
+        DateFormat dateFormat = new SimpleDateFormat( Config.NASA_DATE_FORMAT );
         Date date = dateFormat.parse( "2015-05-30" );
-        WebResponse response = photoService.getPhoto( date ).get();
-        Assert.assertEquals( 200, response.getStatus() );
+        Photo photo = photoService.getPhoto( date ).get();
+        String expectedURL = "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/fcam/FLB_486265257EDR_F0481570FHAZ00323M_.JPG";
+        Assert.assertEquals( expectedURL, photo.getURL() );
     }
 }

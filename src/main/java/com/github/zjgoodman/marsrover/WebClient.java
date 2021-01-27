@@ -14,9 +14,16 @@ public class WebClient {
 
     private final WebTarget rootEndpoint;
 
-    public WebClient( String endpoint, String token ) {
-        rootEndpoint = ClientBuilder.newBuilder().build().target( endpoint )
-            .queryParam( API_KEY_PARAM, token );
+    public WebClient( String endpoint ) {
+        this( endpoint, null );
+    }
+
+    public WebClient( String url, String token ) {
+        WebTarget endpoint = ClientBuilder.newBuilder().build().target( url );
+        if ( token != null ) {
+            endpoint = endpoint.queryParam( API_KEY_PARAM, token );
+        }
+        this.rootEndpoint = endpoint;
     }
 
     public WebResponse getJson( String path, Map<String, String> queryParameters ) {
