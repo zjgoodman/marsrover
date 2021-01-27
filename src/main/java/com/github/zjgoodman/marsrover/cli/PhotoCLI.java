@@ -1,10 +1,9 @@
 package com.github.zjgoodman.marsrover.cli;
 
-import java.io.File;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 
 import com.github.zjgoodman.marsrover.Config;
@@ -22,8 +21,8 @@ public class PhotoCLI implements Runnable {
     @Option( names = "--endpoint", description = "token to authenticate with github", interactive = true, arity = "0..1" )
     private String endpoint = Config.NASA_API_BASE_URL;
 
-    @Option( names = "--token", required = true, description = "token to authenticate with github", interactive = true, arity = "0..1" )
-    private String apiKey;
+    @Option( names = "--token", description = "token to authenticate with github", interactive = true, arity = "0..1" )
+    private String apiKey = Config.NASA_API_KEY;
 
     @Option( names = "--date", required = true, description = "the date to download" )
     private List<String> dateStrings;
@@ -41,13 +40,12 @@ public class PhotoCLI implements Runnable {
         WebClient nasaClient = new WebClient( endpoint, apiKey );
         PhotoService photoService = new PhotoService( nasaClient );
         Set<Date> dates = new DateParser().parseDates( dateStrings );
-        System.out.println( dates );
         for ( Date date : dates ) {
             try {
                 Photo photo = photoService.getPhoto( date ).get();
                 System.out.println( photo.getURL() );
             } catch ( InterruptedException | ExecutionException e ) {
-                System.err.println( "Unable to download photo for date " + date );
+                throw new CompletionException( e );
             }
         }
     }
