@@ -35,8 +35,6 @@ public class PhotoService {
             try {
                 if ( file.createNewFile() ) {
                     writePhotoPayloadToFile( metadata, file );
-                } else {
-                    // get payload from disk?
                 }
                 return metadata;
             } catch ( IOException e ) {

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class PhotoServiceTest {
     @Test
-    public void testGetPhoto() throws Exception {
+    public void testGetPhotoMetadata() throws Exception {
         NasaWebClient webClient = new NasaWebClient( Config.NASA_API_BASE_URL, Config.NASA_API_KEY );
         PhotoService photoService = new PhotoService( webClient );
         DateFormat dateFormat = new SimpleDateFormat( Config.NASA_DATE_FORMAT );
