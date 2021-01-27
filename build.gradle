@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'info.picocli:picocli:4.5.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.apache.cxf:cxf-rt-rs-client:3.4.1'
     testImplementation 'junit:junit:4.13'
@@ -28,6 +29,5 @@ dependencies {
 }
 
 application {
-    // Define the main class for the application.
-    mainClassName = 'com.github.zjgoodman.marsrover.App'
+    mainClass = 'com.github.zjgoodman.marsrover.cli.PhotoCLI'
 }
