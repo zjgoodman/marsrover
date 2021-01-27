@@ -27,6 +27,9 @@ public class PhotoService {
         Map<String, String> queryParameters = new HashMap<>();
         queryParameters.put( Config.NASA_DATE_QUERY_PARAM, dateString );
         return webClient.getJsonAsync( "/rovers/" + roverName + "/photos", queryParameters ).thenApply( webResponse -> {
+            if ( webResponse.getStatus() != 200 ) {
+                throw new HttpException( webResponse );
+            }
             List<GsonPhoto> photos = new Gson().fromJson( webResponse.getBody(), GsonPhotosList.class ).getPhotos();
             if ( photos.isEmpty() ) {
                 throw new IllegalStateException( "No photos found for date " + dateString );
