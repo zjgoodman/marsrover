@@ -9,6 +9,8 @@ This application was built using Java 11, open jdk. If you do not have Java 11 i
 
 Note that because the rovers take A LOT of photos each day, it takes time to download all of them. For example, on May 30, 2015, over 800 photos were taken by the rover `curiosity`.
 
+Note that NASA for some reason stores lots of copies of the same image, with different IDs.
+
 ## Supported date formats
 The app and the CLI both support the following date formats:
 
