@@ -39,10 +39,10 @@ dependencies {
 
 application {
     // TO RUN VIA CLI:
-    // mainClass = 'com.github.zjgoodman.marsrover.cli.PhotoCLI'
+    mainClass = 'com.github.zjgoodman.marsrover.cli.PhotoCLI'
     
     // TO RUN VIA SPRINGBOOT:
-    mainClass = 'com.github.zjgoodman.marsrover.App'
+    // mainClass = 'com.github.zjgoodman.marsrover.App'
 }
 
 jar {
