@@ -22,8 +22,6 @@ test {
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 	mavenCentral()
 }
@@ -41,8 +39,14 @@ dependencies {
 
 application {
     // TO RUN VIA CLI:
-    mainClass = 'com.github.zjgoodman.marsrover.cli.PhotoCLI'
+    // mainClass = 'com.github.zjgoodman.marsrover.cli.PhotoCLI'
     
     // TO RUN VIA SPRINGBOOT:
-    // mainClass = 'com.github.zjgoodman.marsrover.App'
+    mainClass = 'com.github.zjgoodman.marsrover.App'
+}
+
+jar {
+  from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  }
 }
