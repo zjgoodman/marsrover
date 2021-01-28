@@ -49,11 +49,26 @@ You can run the RESTful web service API in two ways:
 Once you have the service running, see [interacting with the app](#restful-web-service-api-interactions) for information on how to interact with the app.
 
 ### RESTful web service API Docker
-To run the RESTful web service API via Docker, use the following command:
+There are two ways to use the docker image:
+1. [Pulling from docker hub (recommended)](#docker-hub)
+2. [Building the image from source](#building-the-docker-image)
+
+#### Docker Hub
+To run the RESTful web service API via Docker by pulling from docker hub, use the following command:
 ```
 docker run --rm -d --name marsrover -p 8080:8080 zjgoodman/marsrover
 ```
 This will pull the image from docker hub and run it. See [here](#restful-web-service-api-interactions) for information on how to interact with the app.
+
+#### Building the docker image
+To build the RESTful web service API docker image, you'll first need to build the source code [directly in Java](#restful-web-service-api-java), which requires Java 11.
+
+Once you've built the source code, use the following command to build and run the docker image:
+```
+docker build . -f src/main/docker/Dockerfile -t zjgoodman/marsrover
+docker run --rm -d --name marsrover -p 8080:8080 zjgoodman/marsrover
+```
+See [here](#restful-web-service-api-interactions) for information on how to interact with the app.
 
 ### RESTful web service API Java
 Since the RESTful web service API is not the default method of interacting with the app, you need to change one line in the [`application` block of `build.gradle`](https://github.com/zjgoodman/marsrover/blob/main/build.gradle#L40-L46) to configure the app to run the RESTful web service API. 
