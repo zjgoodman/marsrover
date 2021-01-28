@@ -20,28 +20,18 @@ public class DateParser {
      * June 2, 2018
      * Jul-13-2016
      */
-    private static final List<DateFormat> DEFAULT_DATE_FORMATS = Arrays.asList(
+    private static final List<DateFormat> DATE_FORMATS = Arrays.asList(
         new SimpleDateFormat( "MM/dd/yy" ),
         new SimpleDateFormat( "MMM dd, yyyy" ),
         new SimpleDateFormat( "MMM-dd-yyyy" ),
         new SimpleDateFormat( Config.NASA_DATE_FORMAT ) );
-
-    private final List<DateFormat> dateFormats;
-
-    public DateParser() {
-        this( DEFAULT_DATE_FORMATS );
-    }
-
-    public DateParser( List<DateFormat> dateFormats ) {
-        this.dateFormats = dateFormats;
-    }
 
     public Set<Date> parseDates( Collection<String> dateStrings ) {
         return dateStrings.stream().map( this::parseDate ).collect( Collectors.toSet() );
     }
 
     public Date parseDate( String dateString ) {
-        for ( DateFormat dateFormat : dateFormats ) {
+        for ( DateFormat dateFormat : DATE_FORMATS ) {
             try {
                 return dateFormat.parse( dateString );
             } catch ( ParseException e ) {

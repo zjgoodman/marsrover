@@ -1,7 +1,11 @@
 package com.github.zjgoodman.marsrover.cli;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UncheckedIOException;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
@@ -23,8 +27,11 @@ public class PhotoCLI implements Runnable {
     @Option( names = "--token", description = "token to authenticate with github", interactive = true, arity = "0..1" )
     private String apiKey = Config.NASA_API_KEY;
 
-    @Option( names = "--date", required = true, description = "the date to download" )
-    private List<String> dateStrings;
+    @Option( names = "--date", description = "the date to download" )
+    private Set<String> dateStrings = new HashSet<>();
+
+    @Option( names = "--date-file", description = "a file containing dates" )
+    private File dateFile;
 
     @Option( names = { "-h", "--help" }, usageHelp = true, description = "display a help message" )
     private boolean helpRequested = false;
@@ -41,12 +48,28 @@ public class PhotoCLI implements Runnable {
     public void run() {
         NasaWebClient nasaClient = new NasaWebClient( endpoint, apiKey );
         PhotoService photoService = new PhotoService( nasaClient );
+        loadTextFile();
+        if ( dateStrings.isEmpty() ) {
+            throw new IllegalArgumentException( "Must specify --date-file or --date" );
+        }
         Set<Date> dates = new DateParser().parseDates( dateStrings );
         for ( Date date : dates ) {
             try {
                 photoService.downloadPhoto( date, rover ).get();
             } catch ( InterruptedException | ExecutionException e ) {
                 throw new CompletionException( e );
+            }
+        }
+    }
+
+    private void loadTextFile() {
+        if ( dateFile != null ) {
+            try (Scanner scanner = new Scanner( dateFile )) {
+                while ( scanner.hasNextLine() ) {
+                    dateStrings.add( scanner.nextLine().trim() );
+                }
+            } catch ( FileNotFoundException e ) {
+                throw new UncheckedIOException( e );
             }
         }
     }
