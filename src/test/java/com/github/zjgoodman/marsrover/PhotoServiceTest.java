@@ -3,6 +3,7 @@ package com.github.zjgoodman.marsrover;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.github.zjgoodman.marsrover.http.NasaWebClient;
 
@@ -16,8 +17,7 @@ public class PhotoServiceTest {
         PhotoService photoService = new PhotoService( webClient );
         DateFormat dateFormat = new SimpleDateFormat( Config.NASA_DATE_FORMAT );
         Date date = dateFormat.parse( "2015-05-30" );
-        PhotoMetadata photo = photoService.getPhotoMetadata( date, Config.NASA_DEFAULT_ROVER_NAME ).get();
-        String expectedURL = "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/fcam/FLB_486265257EDR_F0481570FHAZ00323M_.JPG";
-        Assert.assertEquals( expectedURL, photo.getPayloadURL() );
+        List<PhotoMetadata> actualURLs = photoService.getPhotoMetadata( date, Config.NASA_DEFAULT_ROVER_NAME ).get();
+        Assert.assertEquals( 856, actualURLs.size() );
     }
 }

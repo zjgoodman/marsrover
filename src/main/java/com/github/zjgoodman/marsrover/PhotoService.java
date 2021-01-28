@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,21 +30,23 @@ public class PhotoService {
         this.webClient = webClient;
     }
 
-    public CompletableFuture<PhotoMetadata> downloadPhoto( Date date, String roverName ) {
+    public CompletableFuture<List<PhotoMetadata>> downloadPhoto( Date date, String roverName ) {
         return getPhotoMetadata( date, roverName ).thenApply( metadata -> {
-            File file = new File( "build/" + metadata.getId() + ".jpg" );
-            try {
-                if ( file.createNewFile() ) {
-                    writePhotoPayloadToFile( metadata, file );
+            for ( PhotoMetadata photo : metadata ) {
+                File file = new File( "build/" + photo.getId() + ".jpg" );
+                try {
+                    if ( file.createNewFile() ) {
+                        writePhotoPayloadToFile( photo, file );
+                    }
+                } catch ( IOException e ) {
+                    throw new CompletionException( e );
                 }
-                return metadata;
-            } catch ( IOException e ) {
-                throw new CompletionException( e );
             }
+            return metadata;
         } );
     }
 
-    public CompletableFuture<PhotoMetadata> getPhotoMetadata( Date date, String roverName ) {
+    public CompletableFuture<List<PhotoMetadata>> getPhotoMetadata( Date date, String roverName ) {
         DateFormat dateFormat = new SimpleDateFormat( Config.NASA_DATE_FORMAT );
         String dateString = dateFormat.format( date );
         Map<String, String> queryParameters = new HashMap<>();
@@ -69,12 +72,12 @@ public class PhotoService {
         }
     }
 
-    private PhotoMetadata extractPhotoMetadata( WebResponse webResponse ) {
+    private List<PhotoMetadata> extractPhotoMetadata( WebResponse webResponse ) {
         webResponse.assert200();
         List<GsonPhotoMetadata> photos = new Gson().fromJson( webResponse.getBodyAsString(), GsonPhotosList.class ).getPhotos();
         if ( photos.isEmpty() ) {
             throw new IllegalStateException( "No photos found for date" );
         }
-        return photos.get( 0 ); // TODO return the first photo?
+        return new ArrayList<>( photos );
     }
 }
