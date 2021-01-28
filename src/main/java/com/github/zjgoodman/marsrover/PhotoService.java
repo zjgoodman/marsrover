@@ -22,13 +22,9 @@ import com.github.zjgoodman.marsrover.http.gson.GsonPhotosList;
 import com.google.gson.Gson;
 
 public class PhotoService {
-    private final NasaWebClient webClient;
+    private final NasaWebClient webClient = new NasaWebClient( Config.NASA_API_BASE_URL, Config.NASA_API_KEY );
 
     private final PhotoWebClient photoClient = new PhotoWebClient();
-
-    public PhotoService( NasaWebClient webClient ) {
-        this.webClient = webClient;
-    }
 
     public CompletableFuture<List<PhotoMetadata>> downloadPhoto( Date date, String roverName ) {
         return getPhotoMetadata( date, roverName ).thenApply( metadata -> {

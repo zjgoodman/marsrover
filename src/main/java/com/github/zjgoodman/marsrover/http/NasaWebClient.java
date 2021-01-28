@@ -14,10 +14,6 @@ public class NasaWebClient {
 
     private final WebTarget rootEndpoint;
 
-    public NasaWebClient( String endpoint ) {
-        this( endpoint, null );
-    }
-
     public NasaWebClient( String url, String token ) {
         WebTarget endpoint = ClientBuilder.newBuilder().build().target( url );
         if ( token != null ) {

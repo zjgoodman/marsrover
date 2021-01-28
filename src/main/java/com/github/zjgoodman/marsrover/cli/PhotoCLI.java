@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutionException;
 
 import com.github.zjgoodman.marsrover.Config;
 import com.github.zjgoodman.marsrover.PhotoService;
-import com.github.zjgoodman.marsrover.http.NasaWebClient;
 import com.github.zjgoodman.marsrover.util.DateParser;
 
 import picocli.CommandLine;
@@ -21,12 +20,6 @@ import picocli.CommandLine.Option;
 
 @Command( name = "download", description = "Downloads a photo from NASA" )
 public class PhotoCLI implements Runnable {
-    @Option( names = "--endpoint", description = "token to authenticate with github" )
-    private String endpoint = Config.NASA_API_BASE_URL;
-
-    @Option( names = "--token", description = "token to authenticate with github", interactive = true, arity = "0..1" )
-    private String apiKey = Config.NASA_API_KEY;
-
     @Option( names = "--date", description = "the date to download" )
     private Set<String> dateStrings = new HashSet<>();
 
@@ -46,8 +39,7 @@ public class PhotoCLI implements Runnable {
 
     @Override
     public void run() {
-        NasaWebClient nasaClient = new NasaWebClient( endpoint, apiKey );
-        PhotoService photoService = new PhotoService( nasaClient );
+        PhotoService photoService = new PhotoService();
         loadTextFile();
         if ( dateStrings.isEmpty() ) {
             throw new IllegalArgumentException( "Must specify --date-file or --date" );
