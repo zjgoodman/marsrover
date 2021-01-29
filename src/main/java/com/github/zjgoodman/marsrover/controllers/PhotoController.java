@@ -11,6 +11,7 @@ import com.github.zjgoodman.marsrover.PhotoMetadata;
 import com.github.zjgoodman.marsrover.PhotoService;
 import com.github.zjgoodman.marsrover.util.DateParser;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +21,7 @@ public class PhotoController {
 
     private final DateParser dateParser = new DateParser();
 
+    @CrossOrigin( origins = "*" ) // NOTE: would not allow * in production
     @RequestMapping( "/photos" )
     public List<PhotoMetadata> getPhotoMetaData( @RequestParam( name = "date" ) String dateString,
         @RequestParam( name = "rover", defaultValue = Config.NASA_DEFAULT_ROVER_NAME ) String rover ) throws InterruptedException, ExecutionException {
