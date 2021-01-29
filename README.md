@@ -106,4 +106,16 @@ Use `/photos?date=yyyy-MM-dd` to see the photo metadata for all the photos taken
 Use the `?rover` param to see photos taken by other rovers. Use the [rovers API](#rovers-api) to see all available rovers. The default rover is `curiosity`. For example: http://localhost:8080/photos?date=2015-05-30&rover=spirit
 
 ## Angular UI
-This application has an angular based UI. To run the UI, you must first run the [RESTful web service API](#restful-web-service-api). Once you have the API running, follow the [UI startup instructions](marsrover-ui/README.md). 
+This application has an angular based UI. To run the UI, you must first run the [RESTful web service API](#restful-web-service-api).
+
+You will also need to install `npm` and the angular CLI (`ng`).
+
+Once you have the API running, `cd marsrover-ui` and run the following commands:
+```
+npm install
+ng serve --open
+```
+
+If your browser does not automatically open with the UI, navigate to http://localhost:4200
+
+See the [UI startup instructions](marsrover-ui/README.md) for additional information. 
