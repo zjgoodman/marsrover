@@ -18,7 +18,10 @@ export class PhotoListComponent implements OnInit {
 
   submit(): void {
     this.photoService.getPhotos( this.date, this.rover ).subscribe( photos => {
-      this.photos = photos;
+      this.photos = [];
+      for ( let i = 0; i < photos.length; i++ ) {
+        this.photos.push( photos[ i ] );
+      }
     } );
   }
 

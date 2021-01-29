@@ -1,4 +1,4 @@
 export class Photo {
-    url: string;
+    payloadURL: string;
     id: string;
 }

@@ -5,6 +5,6 @@ Rover: <input [(ngModel)]="rover" />
 <ul class="photos">
     <li *ngFor="let photo of photos">
         <h3>{{photo.id}}</h3>
-        <img src={{photo.url}} alt="" />
+        <img src={{photo.payloadURL}} alt="" />
     </li>
 </ul>
