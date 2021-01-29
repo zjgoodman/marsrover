@@ -1,9 +1,10 @@
 # Mars Rover Photo Downloader
 This application takes in one or more dates and uses the [NASA REST API](https://api.nasa.gov/) to download the images that were taken by the mars rover on the supplied date(s). Images are stored in the `build` folder. If an image is already downloaded, it won't be downloaded again.
 
-There are two ways to use this application:
+There are three ways to use this application:
 1. [Command line interface (default)](#command-line-interface)
 2. [RESTful web service API](#restful-web-service-api)
+3. [Angular UI](#angular-ui)
 
 This application was built using Java 11, open jdk. If you do not have Java 11 installed on your machine, I recomend running this application as a Docker container. 
 
@@ -103,3 +104,6 @@ Use `/rovers` to see the list of available rovers. For example: http://localhost
 Use `/photos?date=yyyy-MM-dd` to see the photo metadata for all the photos taken on the provided date. For example: http://localhost:8080/photos?date=2015-05-30
 
 Use the `?rover` param to see photos taken by other rovers. Use the [rovers API](#rovers-api) to see all available rovers. The default rover is `curiosity`. For example: http://localhost:8080/photos?date=2015-05-30&rover=spirit
+
+## Angular UI
+This application has an angular based UI. To run the UI, you must first run the [RESTful web service API](#restful-web-service-api). Once you have the API running, follow the [UI startup instructions](marsrover-ui/README.md). 
