@@ -1,0 +1,10 @@
+Date: <input [(ngModel)]="date" placeholder="yyyy-MM-dd" />
+Rover: <input [(ngModel)]="rover" />
+<button (click)=submit()>Submit</button>
+
+<ul class="photos">
+    <li *ngFor="let photo of photos">
+        <h3>{{photo.id}}</h3>
+        <img src={{photo.url}} alt="" />
+    </li>
+</ul>
